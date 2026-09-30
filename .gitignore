@@ -1,0 +1,10 @@
+.DS_Store
+Thumbs.db
+*.log
+.env
+.env.*
+!.env.example
+/.phpunit.cache/
+/.phpcs-cache
+/node_modules/
+/vendor/
