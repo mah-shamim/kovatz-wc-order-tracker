@@ -1,4 +1,4 @@
-=== WC Order Tracker ===
+=== Kovatz WooCommerce Order Tracker ===
 Requires at least: 6.0
 Requires PHP: 7.4
 Requires plugins: woocommerce

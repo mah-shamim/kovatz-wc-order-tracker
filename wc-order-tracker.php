@@ -1,27 +1,31 @@
 <?php
 /**
- * Plugin Name: Kovatz WC Order Tracker
- * Plugin URI:  https://plugins.wordpress.org/kovatz-wc-order-tracker/
- * Author URI:  https://kovatz.com/
+ * Plugin Name: Kovatz WooCommerce Order Tracker
+ * Plugin URI:  https://Kovatz.com
  * Description: Lets customers track their WooCommerce orders with or without logging in, using a Bootstrap-styled tracking form and timeline, plus a custom branded "Order Tracking Update" email.
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Version:     1.0.0
  * Author:      KOVATZ
- * Text Domain: kovatz-wc-order-tracker
+ * Author URI:  https://profiles.wordpress.org/kovatz/
+ * Text Domain: kovatz-woocommerce-order-tracker
  * Requires Plugins: woocommerce
- * WC requires at least: 6.0
- * WC tested up to: 9.5
+ * Version: 1.0.1
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // No direct access.
 }
 
-define( 'WCOT_VERSION', '1.0.0' );
+define( 'WCOT_VERSION', '1.0.1' );
 define( 'WCOT_PLUGIN_FILE', __FILE__ );
 define( 'WCOT_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'WCOT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
+
+add_action( 'before_woocommerce_init', function () {
+	if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
+		\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
+	}
+} );
 
 /**
  * Bail early with an admin notice if WooCommerce isn't active.
@@ -29,7 +33,7 @@ define( 'WCOT_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 function wcot_check_woocommerce() {
 	if ( ! class_exists( 'WooCommerce' ) ) {
 		add_action( 'admin_notices', function () {
-			echo '<div class="notice notice-error"><p><strong>WC Order Tracker</strong> requires WooCommerce to be installed and active.</p></div>';
+			echo '<div class="notice notice-error"><p><strong>Kovatz WooCommerce Order Tracker</strong> requires WooCommerce to be installed and active.</p></div>';
 		} );
 		return false;
 	}
